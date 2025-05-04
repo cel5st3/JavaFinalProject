@@ -25,6 +25,7 @@ public class BoardView extends JFrame{
 			for(int col = 0; col < model.DIMENSION; col++) {
 				Card card = new Card(row, col);
 				deck.add(card);
+				card.addActionListener(new CardListener(model, this, card));
 			}
 		}
 		this.add(deck,BorderLayout.CENTER);
@@ -60,3 +61,4 @@ public class BoardView extends JFrame{
 		new BoardView(new CardModel());
 	}
 }
+
