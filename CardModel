@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CardModel {
 
 	public static final int DIMENSION = 6 ;
 	private boolean [][] deck = new boolean [DIMENSION][DIMENSION];
+	private ArrayList<String> cardValues = new ArrayList<>(List.of("@('_')@", "@( * O * )@", "--{,_,\\\">", "><(((('>", "=^..^=", "(\\_/)"));
 	private int movesMade;
 	private int cardsMatched;
 	
@@ -37,5 +40,3 @@ public class CardModel {
 	
 	
 }
-
-
