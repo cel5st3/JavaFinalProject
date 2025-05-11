@@ -1,0 +1,44 @@
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
+import java.awt.Dimension;
+
+import javax.swing.Icon;
+
+public class Card extends JButton {
+	boolean matched;
+	boolean faceUp;
+	boolean selected; 
+	int row, col;
+	//private static final Icon faceDownImage = new ImageIcon(Card.class.getResource("images/minecraft.png"));
+	
+
+	
+	public Card(int row, int col) {
+		this.row = row;
+		this.col = col;
+		matched = false;
+		faceUp = false;
+		selected = false;
+		
+		//setIcon(faceDownImage);
+		setPreferredSize(new Dimension(80,80));
+		setText("ʕ•ᴥ•ʔ");//test
+	}
+	
+	public void flipedUp() {
+		selected = true;
+		faceUp = true;
+		
+	}
+	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getCol() {
+		return col;
+	}
+	
+	
+}
