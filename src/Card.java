@@ -23,21 +23,29 @@ public class Card extends JButton {
 		
 		//setIcon(faceDownImage);
 		setPreferredSize(new Dimension(80,80));
-		setText("ʕ•ᴥ•ʔ");//test
+		setText("ʕ•ᴥ•ʔ");
 	}
 	
-	public void flipedUp() {
-		selected = true;
-		faceUp = true;
-		
-	}
+	
 	
 	public int getRow() {
 		return row;
 	}
+	public void setRow(int row) {
+		this.row = row;
+	}
 	
 	public int getCol() {
 		return col;
+	}
+	public void setCol(int col) {
+		this.col = col;
+	}
+	public void faceUp() {
+		setText(value);
+	}
+	public void faceDown() {
+		setText("ʕ•ᴥ•ʔ");
 	}
 	
 	
