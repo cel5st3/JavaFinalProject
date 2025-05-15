@@ -2,6 +2,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.Icon;
 
@@ -11,6 +13,9 @@ public class Card extends JButton {
 	boolean selected; 
 	int row, col;
 	//private static final Icon faceDownImage = new ImageIcon(Card.class.getResource("images/minecraft.png"));
+	private Image ogFaceDownImage;
+	private Image faceDownImage;
+	private double aspectRatio;
 	
 
 	
@@ -23,10 +28,9 @@ public class Card extends JButton {
 		
 		//setIcon(faceDownImage);
 		setPreferredSize(new Dimension(80,80));
-		setText("ʕ•ᴥ•ʔ");
+		//setText("ʕ•ᴥ•ʔ"); s
+		
 	}
-	
-	
 	
 	public int getRow() {
 		return row;
@@ -41,12 +45,12 @@ public class Card extends JButton {
 	public void setCol(int col) {
 		this.col = col;
 	}
-	public void faceUp() {
-		setText(value);
-	}
-	public void faceDown() {
-		setText("ʕ•ᴥ•ʔ");
-	}
+//	public void faceUp() {
+//		setText(value);
+//	}
+//	public void faceDown() {
+//		setText("ʕ•ᴥ•ʔ");
+//	}
 	
 	
 }

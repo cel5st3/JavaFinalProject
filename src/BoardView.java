@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
@@ -18,11 +19,11 @@ public class BoardView extends JFrame{
 		
 		//deck
 		JPanel deck = new JPanel();
-		GridLayout cards = new GridLayout(model.DIMENSION, model.DIMENSION);
+		GridLayout cards = new GridLayout(CardModel.DIMENSION, CardModel.DIMENSION);
 		deck.setLayout(cards);
 		
-		for(int row = 0; row < model.DIMENSION; row++) {
-			for(int col = 0; col < model.DIMENSION; col++) {
+		for(int row = 0; row < CardModel.DIMENSION; row++) {
+			for(int col = 0; col < CardModel.DIMENSION; col++) {
 				Card card = new Card(row, col);
 				deck.add(card);
 				card.addActionListener(new CardListener(model, this, card));
