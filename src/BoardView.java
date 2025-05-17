@@ -60,5 +60,6 @@ public class BoardView extends JFrame{
 	
 	public static void main(String[] args) {
 		new BoardView(new CardModel());
+		
 	}
 }

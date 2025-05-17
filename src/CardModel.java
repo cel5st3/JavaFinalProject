@@ -6,26 +6,22 @@ public class CardModel {
 
 	public static final int DIMENSION = 6 ;
 	//private boolean [][] deck = new boolean [DIMENSION][DIMENSION];
-	private ArrayList<String> cardValues = new ArrayList<>(List.of(
-		    "@('_')@", "@( * O * )@", "--{,_,\\\">", "><(((('>", "=^..^=", "(\\_/)",
-		    "(o_o)", "(^_^)", "(*_*)", "(T_T)", "(>_<)", "¯\\_(ツ)_/¯",
-		    "(ಠ_ಠ)", "(¬_¬)", "(•_•)", "(•‿•)", "(◕‿◕)", "(ʘ‿ʘ)"
-		));
-	private String[][] deck = new String[DIMENSION][DIMENSION];
-	private int movesMade;
-	private int cardsMatched;
-	private boolean selectedCard;
 	
+//	private String[][] deck = new String[DIMENSION][DIMENSION];
+//	private int movesMade;
+//	private int cardsMatched;
+//	private boolean selectedCard;
 	
+	//constructor 
 	public CardModel() {
 		
 	System.out.println("CardModel created");
 	ArrayList<String> all = new ArrayList<>();
-	for(int i = 0; i < cardValues.size(); i++) 
+	//for(int i = 0; i < cardValues.size(); i++) 
 	{
-		String currVal = cardValues.get(i);
-		all.add(currVal);
-		all.add(currVal);
+		//String currVal = cardValues.get(i);
+		//all.add(currVal);
+		//all.add(currVal);
 	}
 	Random randomVal = new Random();
 	int index = 0;
