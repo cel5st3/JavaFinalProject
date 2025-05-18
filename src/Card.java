@@ -124,5 +124,13 @@ public class Card extends JButton {
 			e.printStackTrace();
 		}
 	}
-	
+	public boolean isFaceUp() {
+		return faceUp;
+	}
+	public boolean isMatched() {
+		return matched;
+	}
+	public void setMatched(boolean matched) {
+		this.matched = matched;
+	}
 }

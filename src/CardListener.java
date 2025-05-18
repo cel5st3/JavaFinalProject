@@ -18,7 +18,13 @@ public class CardListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		//boolean card1 = CardModel.selectCard(card.getRow(), card.getCol());
+		Card cardClicked = (Card) e.getSource();
+		
+		if(!cardClicked.isFaceUp()) {
+			cardClicked.faceUp();
+		}else {
+			cardClicked.faceDown();
+		}
 	}
 
 	

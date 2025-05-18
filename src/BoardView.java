@@ -24,9 +24,9 @@ public class BoardView extends JFrame{
 		
 		for(int row = 0; row < CardModel.DIMENSION; row++) {
 			for(int col = 0; col < CardModel.DIMENSION; col++) {
-				Card card = new Card(row, col);
+				Card card = new Card(row, col, model.getImage(row,col), model.getKey(row, col));
 				deck.add(card);
-				card.addActionListener(new CardListener(model, this, card));
+				card.addActionListener(new CardListener(model, this,card));
 			}
 		}
 		this.add(deck,BorderLayout.CENTER);
