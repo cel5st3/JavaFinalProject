@@ -34,15 +34,17 @@ public class Card extends JButton {
 		faceUp = false;
 		selected = false;
 		
-		//setIcon(faceDownImage);
+		
 		setPreferredSize(new Dimension(80,80));
-		//setText("ʕ•ᴥ•ʔ"); s
+		
 		
 		setFaceDownImage(new File("images/minecraft.png"));
 		setFaceUpImage(faceImageFile);
 		setIcon(new ImageIcon(faceDownImage));
 	}
-	
+	public Card() {
+		
+	}
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -86,6 +88,8 @@ public class Card extends JButton {
 	}
 
 	public void faceUp() {
+		System.out.println("Flipping face up: " + key);
+	    System.out.println("Image null? " + (faceUpImage == null));
 		faceUp = true;
 		setIcon(new ImageIcon(faceUpImage));
 		repaint();

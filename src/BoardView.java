@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 public class BoardView extends JFrame{
 
 	private CardModel model;
+	private JLabel movesMade;
 	
 	public BoardView(CardModel model) {
 		
@@ -44,7 +45,7 @@ public class BoardView extends JFrame{
 		
 		//side information 
 		JPanel side = new JPanel();
-		JLabel movesMade = new JLabel("Moves Made : ");
+		movesMade = new JLabel("Moves Made : 0");
 		side.add(movesMade);
 		this.add(side, BorderLayout.EAST);
 		
@@ -55,11 +56,16 @@ public class BoardView extends JFrame{
 		
 	}
 	
-	
+	public void updateUI(int moves) {
+		movesMade.setText("Moves Made : " + moves);
+		
+	}
 	
 	
 	public static void main(String[] args) {
 		new BoardView(new CardModel());
 		
 	}
+	
+	
 }

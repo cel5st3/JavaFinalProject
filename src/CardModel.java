@@ -8,14 +8,9 @@ import java.util.Random;
 public class CardModel {
 
 	public static final int DIMENSION = 6 ;
-	//private boolean [][] deck = new boolean [DIMENSION][DIMENSION];
-	
-//	private String[][] deck = new String[DIMENSION][DIMENSION];
-//	private int movesMade;
-//	private int cardsMatched;
-//	private boolean selectedCard;
 	//for file folder 
 	//https://stackoverflow.com/questions/3634853/how-to-create-a-directory-in-java
+	
 	private File[][] cardImages = new File[DIMENSION][DIMENSION];
 	private String[][] keys = new String[DIMENSION][DIMENSION];
 	private HashMap<String, File> imageMap = new HashMap<>();
@@ -40,8 +35,7 @@ public class CardModel {
 	}
 	
 	//https://stackoverflow.com/questions/16112515/how-to-shuffle-an-arraylist
-	Collections.shuffle(allKeys);
-	//		//shuffle cards
+	Collections.shuffle(allKeys);		//shuffle cards
 	
 	int index = 0;
 	for(int i = 0; i < DIMENSION; i++) {
