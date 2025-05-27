@@ -37,23 +37,28 @@ public class CardListener implements ActionListener{
 	    
 		if(firstCard == null) {
 			firstCard = cardClicked;
-		}else if (secondCard == null && cardClicked != firstCard){
+			return;
+		}
+		if (secondCard == null && cardClicked != firstCard){
 			secondCard = cardClicked;
 			waiting = true;
-		}
-		
-		Timer delay = new Timer(2000, new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                matchable(firstCard, secondCard);
-                firstCard = null;
-                secondCard = null;
-                waiting = false;
-            }
-        });
-
-		delay.setRepeats(false);
-		delay.start();
+			if (matchable(firstCard, secondCard)) {
+	            revealCards(firstCard, secondCard);
+	            reset();
+	        } else {
+	            Timer delay = new Timer(2000, new ActionListener() {
+	                public void actionPerformed(ActionEvent ev) {
+	                    firstCard.faceDown();
+	                    secondCard.faceDown();
+	                    reset();
+	                }
+	            });
+	            delay.setRepeats(false);
+	            delay.start();
+	        }
+	    }
 	}
+
 	/**
 	 * 
 	 * @param firstCard
@@ -66,37 +71,37 @@ public class CardListener implements ActionListener{
 			System.out.println("CARD IS NULL!!!!");
 			return false;
 		}
-		if (firstCard.getKey().equals(secondCard.getKey()))
-		{
-			// if first card instance of hint card, put both cards face up and call card reveal
-			if (firstCard instanceof HintCard) {
-				firstCard.faceUp();
-				secondCard.faceUp();
-				((HintCard) firstCard).cardReveal();
-			}
-			
-			// if second card instance of hint card, put both cards face up and call card reveal
-			else if (secondCard instanceof HintCard) {
-				firstCard.faceUp();
-				secondCard.faceUp();
-				((HintCard) secondCard).cardReveal();
-				
-			} 
-			else {
-				// else, just put both cards face up
-				firstCard.setMatched(true);
-				secondCard.setMatched(true);
-				System.out.println("MATCHED");
-				
-			}
-			return true;
-			
-		}
-		firstCard.faceDown();
-		secondCard.faceDown();
-		// if not matchable, keep both cards face down and tell user to try again
 		System.out.println("Try again!");
-		return false;
+		return firstCard.getKey().equals(secondCard.getKey());
 	}
 	
+	
+	private void revealCards(Card firstCard, Card secondCard) {
+		firstCard.faceUp();
+		secondCard.faceUp();
+		
+		boolean firstHintCard = firstCard instanceof HintCard;
+		boolean secondHintCard = secondCard instanceof HintCard;
+		
+		if(firstCard.getKey().equals(secondCard.getKey())) {
+			if(firstHintCard && secondHintCard) {
+				System.out.println("hintcard matched - calling cardReveal");
+				((HintCard)firstCard).cardReveal();
+			}else {
+				System.out.println("regular cards match");
+			}
+			firstCard.setMatched(true);
+			secondCard.setMatched(true);
+		}else {
+			System.out.println("not a match");
+		}
+			
+
+	}
+
+	private void reset() {
+		firstCard = null;
+		secondCard = null;
+		waiting = false;
+	}
 }

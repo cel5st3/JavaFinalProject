@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -6,10 +7,10 @@ public class HintCard extends Card implements Hintable {
 	Card card;
 	Card[] cardsRemaining;
 	
-	public HintCard() 
+	public HintCard(int row, int col, File imageFile, String key, Card[] cardsRemaining) 
 	{
-		super();
-		this.card = card;
+		super(row, col, imageFile, key);
+		//this.card = card;
 		this.cardsRemaining = cardsRemaining;	
 	}
 	
@@ -19,8 +20,8 @@ public class HintCard extends Card implements Hintable {
 	@Override
 	public void cardReveal()
 	{
+		System.out.println("Revealing hint cards");
 		Card[] cardsRemaining = getCardsRemaining();
-		Timer timer = new Timer();
 		
 		// if less than two cards remaining, return
 		if (cardsRemaining.length < 2) {
@@ -30,26 +31,29 @@ public class HintCard extends Card implements Hintable {
 		// get two random cards from cards remaining
 		Random random = new Random();
 		int firstIndex = random.nextInt(cardsRemaining.length - 1);
-		int secondIndex = random.nextInt(cardsRemaining.length - 1);
-				
+		//int secondIndex = random.nextInt(cardsRemaining.length - 1);
+		int secondIndex;
+		do {
+			secondIndex = random.nextInt(cardsRemaining.length - 1);
+		}while(secondIndex == firstIndex);
+		
 		Card firstCard = cardsRemaining[firstIndex];
 		Card secondCard = cardsRemaining[secondIndex];
-				
-		TimerTask task = new TimerTask() {
-			
-			int count =  2;
-			
-			@Override
+		
+		firstCard.faceUp();
+		secondCard.faceUp();
+		
+//		
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
 			public void run() {
-				count--;
-				if (count < 0) {
-					firstCard.faceDown();
-					secondCard.faceDown();
-					timer.cancel();
-				}
+				System.out.println("Flipping hint cards back down");
+				firstCard.faceDown();
+				secondCard.faceDown();
+				timer.cancel();
 			}
-		};
-		timer.scheduleAtFixedRate(task, 0, 1000);
+		}, 2000);
 	}
 
 	/**
