@@ -15,7 +15,9 @@ public class CardModel {
 	private String[][] keys = new String[DIMENSION][DIMENSION];
 	private HashMap<String, File> imageMap = new HashMap<>();
 
-	// constructor
+	/**
+	 * Purpose: Sets each card in the deck to have an image and a key
+	 */
 	public CardModel() {
 
 		System.out.println("CardModel created");
@@ -46,10 +48,24 @@ public class CardModel {
 
 	}
 
+	/**
+	 * Purpose: gets the image assigned to the card
+	 * 
+	 * @param row that the card is at 
+	 * @param col that the card is at 
+	 * @return image
+	 */
 	public File getImage(int row, int col) {
 		return cardImages[row][col];
 	}
 
+	/**
+	 * Purpose: gets the key assigned to the card
+	 * 
+	 * @param row that the card is at 
+	 * @param col that the card is at 
+	 * @return key string
+	 */
 	public String getKey(int row, int col) {
 		return keys[row][col];
 	}
