@@ -36,6 +36,8 @@ public class BoardView extends JFrame{
 		GridLayout cards = new GridLayout(CardModel.DIMENSION, CardModel.DIMENSION);
 		deck.setLayout(cards);
 		
+		// find random col and row to add hint cards to board
+		
 		for(int row = 0; row < CardModel.DIMENSION; row++) {
 			for(int col = 0; col < CardModel.DIMENSION; col++) {
 				Card card;
