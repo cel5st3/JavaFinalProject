@@ -1,17 +1,39 @@
+import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.ImageIcon;
+
 public class HintCard extends Card implements Hintable {
-	Card card;
-	Card[] cardsRemaining;
 	
-	public HintCard(int row, int col, File imageFile, String key, Card[] cardsRemaining) 
+	Card card; // fields
+	BoardView view;
+	private List<Card> cardsRemaining = new ArrayList<>();
+	
+	public HintCard() // constructor
 	{
-		super(row, col, imageFile, key);
-		//this.card = card;
+		super();
+		this.card = card;
 		this.cardsRemaining = cardsRemaining;	
+	}
+	
+	public HintCard(int	row, int col, File faceImageFile, String key) {
+		this.row = row;
+		this.col = col;
+		this.key = key;
+		matched = false;
+		faceUp = false;
+		selected = false;
+		
+		setPreferredSize(new Dimension(80,80));
+		
+		setFaceDownImage(new File("images/minecraft.png"));
+		setFaceUpImage(faceImageFile);
+		setIcon(new ImageIcon(faceDownImage));
 	}
 	
 	/**
@@ -20,48 +42,52 @@ public class HintCard extends Card implements Hintable {
 	@Override
 	public void cardReveal()
 	{
-		System.out.println("Revealing hint cards");
-		Card[] cardsRemaining = getCardsRemaining();
+	//	Card[] cardsRemaining = getCardsRemaining();
+		Timer timer = new Timer();
 		
 		// if less than two cards remaining, return
-		if (cardsRemaining.length < 2) {
-			return;
-		}
+		if (getCardsRemaining() < 2) return;
 		
 		// get two random cards from cards remaining
 		Random random = new Random();
-		int firstIndex = random.nextInt(cardsRemaining.length - 1);
-		//int secondIndex = random.nextInt(cardsRemaining.length - 1);
-		int secondIndex;
-		do {
-			secondIndex = random.nextInt(cardsRemaining.length - 1);
-		}while(secondIndex == firstIndex);
-		
-		Card firstCard = cardsRemaining[firstIndex];
-		Card secondCard = cardsRemaining[secondIndex];
-		
-		firstCard.faceUp();
-		secondCard.faceUp();
-		
-//		
-
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run() {
-				System.out.println("Flipping hint cards back down");
-				firstCard.faceDown();
-				secondCard.faceDown();
-				timer.cancel();
+		int firstIndex = random.nextInt(getCardsRemaining()- 1);
+		int secondIndex = random.nextInt(getCardsRemaining() - 1);
+				
+		Card firstCard = cardsRemaining.get(firstIndex);
+		Card secondCard = cardsRemaining.get(secondIndex);
+				
+		TimerTask task = new TimerTask() {
+			
+			int count =  2;
+			
+			@Override
+			public void run() { // leave cards up for 2 seconds, turn face down after count falls under zero
+				count--;
+				if (count < 0) {
+					firstCard.faceDown();
+					secondCard.faceDown();
+					timer.cancel();
+				}
 			}
-		}, 2000);
+		};
+		timer.scheduleAtFixedRate(task, 0, 1000);
+	}
+	
+	public int getCardsRemaining() {
+		return cardsRemaining.size();
 	}
 
 	/**
 	 * Purpose: Get cards remaining
 	 * @return cardsRemaining
 	 */
-	private Card[] getCardsRemaining()
-	{
-		return cardsRemaining;
-	}
+//	private Card[] getCardsRemaining()
+//	{
+//		for (int i; i < cardsRemaining.length; i++) {
+//			if (cardsRemaining[i].isFaceup()) {
+//				
+//			}
+//			Card[] faceUpCards = card.isFaceUp();	
+//		}
+//	}
 }

@@ -1,76 +1,77 @@
-
 public class Game {
-	Card card;
+	Card card; // fields
 	int matchCount;
-	int cardsRemaining;
+//	int cardsRemaining;
 	long time;
 	
-	public Game()
+	public Game() // constructor
 	{
 		this.card = card;
-		this.cardsRemaining = cardsRemaining;
+//		this.cardsRemaining = cardsRemaining;
 		this.matchCount = matchCount;
 	}
 	
-//	private void updateUI() {
-//		
-//	}
-	/*
-	 * 
+	/**
+	 * Purpose: Get match count
+	 * @return matchCount
 	 */
 	public int getCount()
 	{
 		return matchCount;
 	}
 	
-	/*
-	 * 
+	/**
+	 * Purpose: Set match count
 	 */
 	public void setCount()
 	{
 		this.matchCount = matchCount;
 	}
 	
-	/*
-	 * 
+	/**
+	 * Purpose: Get cards remaining
+	 * @return cardsRemaining
 	 */
-	public int getCardsRemaining()
-	{
-		// if card is face up, it should be removed from cards remaining
-		return cardsRemaining;
-	}
+//	public int getCardsRemaining()
+//	{
+//		// if card is face up, it should be removed from cards remaining
+//		return cardsRemaining;
+//	}
+//	
+//	/**
+//	 * Purpose: Set cards remaining
+//	 */
+//	public void setCardsRemaining()
+//	{
+//		this.cardsRemaining = cardsRemaining;
+//	}
 	
-	/*
-	 * 
-	 */
-	public void setCardsRemaining()
-	{
-		this.cardsRemaining = cardsRemaining;
-	}
-	
-	/*
-	 * 
+	/**
+	 * Purpose: Get time
+	 * @return time
 	 */
 	public long getTime() {
 		return time;
 	}
 	
-	/*
-	 * 
+	/**
+	 * Purpose: Set time
 	 */
 	public void setTime() {
 		this.time = time;
 	}
 	
+//	/**
+//	 * Purpose: Check if game has been won
+//	 * @return true if game won, otherwise false
+//	 */
 //	private boolean gameWon() { 
 //		if (getCardsRemaining() == 0) {
 //			return true;
 //		}
 //		return false;
 //	}
-	/*
-	 * Purpose: calls 
-	 */
+	
 	public void main() {
 		new BoardView(new CardModel());
 	}
