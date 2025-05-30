@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +31,7 @@ public class BoardView extends JFrame{
 		ImageIcon imageIcon = new ImageIcon("images/Cloud.jpg");
 		Image background = imageIcon.getImage();	
 		
-		JPanel backgroundPanel = new JPanel() {
+		JPanel backgroundPanel = new JPanel(){
 			@Override
 	        protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
@@ -38,33 +39,54 @@ public class BoardView extends JFrame{
 	        }
 	    };
 	    backgroundPanel.setLayout(new BorderLayout());
-	        
+	    
+	    Random randomHint = new Random(); //-- added
+	    int rowHint = randomHint.nextInt(CardModel.DIMENSION);
+	    int colHint = randomHint.nextInt(CardModel.DIMENSION);
+	    String hintKey = model.getKey(rowHint, colHint);
+	    
+	    
+	    
 		//deck
-		JPanel deck = new JPanel();
-		GridLayout cards = new GridLayout(CardModel.DIMENSION, CardModel.DIMENSION);
-		deck.setLayout(cards);
+		JPanel deck = new JPanel(new GridLayout(CardModel.DIMENSION, CardModel.DIMENSION));
+		//GridLayout cards = new GridLayout(CardModel.DIMENSION, CardModel.DIMENSION);
+		//deck.setLayout(cards);
 		
-		List<Card> allCards = new ArrayList<>();
+		//List<Card> allCards = new ArrayList<>();
 		for(int row = 0; row < CardModel.DIMENSION; row++) {
 			for(int col = 0; col < CardModel.DIMENSION; col++) {
-				Card card = new Card(row, col, model.getImage(row, col), model.getKey(row, col));
-				allCards.add(card);
-				cardsRemaining.add(card);
+			
+				File image = model.getImage(row,col);
+				String key = model.getKey(row, col);
+				Card card;
+				if(key.equals(hintKey)) {
+					card = new HintCard(row, col, image, key);
+					System.out.println("HintCard place at (" + row + ", " + col+ ")");
+				}
+				else
+				{
+					card = new Card(row, col, image, key);
+				}
+//				Card card = new Card(row, col, model.getImage(row, col), model.getKey(row, col));
+//				allCards.add(card);
+//				cardsRemaining.add(card);
+				deck.add(card);
+				card.addActionListener(new CardListener(model, this, card));
 			}
 		}
 		
-		for (Card card : allCards) {
-			if (card.getKey() == findFirstHintCard().getKey() || card.getKey() == findSecondHintCard().getKey()) {
-				card = new HintCard(card.getRow(), card.getCol(), model.getImage(card.getRow(), card.getCol()), model.getKey(card.getRow(), card.getCol()));
-			}
-			deck.add(card);
-			card.addActionListener(new CardListener(model, this,card));
-			cardsRemaining.add(card);
-		}
-			
-		if (cardsRemaining == null || cardsRemaining.isEmpty()) {
-			return;
-		}
+//		for (Card card : allCards) {
+//			if (card.getKey() == findFirstHintCard().getKey() || card.getKey() == findSecondHintCard().getKey()) {
+//				card = new HintCard(card.getRow(), card.getCol(), model.getImage(card.getRow(), card.getCol()), model.getKey(card.getRow(), card.getCol()));
+//			}
+//			deck.add(card);
+//			card.addActionListener(new CardListener(model, this,card));
+//			cardsRemaining.add(card);
+//		}
+//			
+//		if (cardsRemaining == null || cardsRemaining.isEmpty()) {
+//			return;
+//		}
 		
 		// top panel
 		JPanel top = new JPanel();
@@ -99,8 +121,10 @@ public class BoardView extends JFrame{
 	    gameWon = new JLabel();
 		side.add(gameWon);
 		
+		setContentPane(backgroundPanel);
 		pack();
 		setVisible(true);
+		
 	    deck.setOpaque(false);
 	    top.setOpaque(false);
 	    instructions.setOpaque(false);
