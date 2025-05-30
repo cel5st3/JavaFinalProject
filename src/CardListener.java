@@ -104,5 +104,4 @@ public class CardListener implements ActionListener{
 		view.cardsRemaining.remove(firstCard);
 		view.cardsRemaining.remove(secondCard);
 	}
-	
 }

@@ -61,17 +61,6 @@ public class Game {
 		this.time = time;
 	}
 	
-//	/**
-//	 * Purpose: Check if game has been won
-//	 * @return true if game won, otherwise false
-//	 */
-//	private boolean gameWon() { 
-//		if (getCardsRemaining() == 0) {
-//			return true;
-//		}
-//		return false;
-//	}
-	
 	public void main() {
 		new BoardView(new CardModel());
 	}

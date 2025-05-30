@@ -38,7 +38,7 @@ public class Card extends JButton {
 		setPreferredSize(new Dimension(80,80));
 		
 		
-		setFaceDownImage(new File("images/minecraft.png"));
+		setFaceDownImage(new File("images/grass.jpg"));
 		setFaceUpImage(faceImageFile);
 		setIcon(new ImageIcon(faceDownImage));
 	}
