@@ -1,3 +1,15 @@
+/**
+* Lead Author(s):
+* @author Celeste Rodriguez
+* @author Mariana Aguilar
+*
+* References:
+* 
+* 
+* Version: 2025-05-30
+* 
+* Responsibilities of class: Create a hint card, card that gives the player a hint with cardReveal
+*/
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
@@ -13,6 +25,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 
 public class Card extends JButton {
+	// fields
 	boolean matched;
 	boolean faceUp;
 	boolean selected; 
@@ -25,7 +38,13 @@ public class Card extends JButton {
 	private double aspectRatio;
 	protected String key;
 
-	
+	/**
+	 * Purpose: Create card
+	 * @param row
+	 * @param col
+	 * @param faceImageFile
+	 * @param key
+	 */
 	public Card(int row, int col, File faceImageFile, String key) {
 		this.row = row;
 		this.col = col;
@@ -42,9 +61,10 @@ public class Card extends JButton {
 		setFaceUpImage(faceImageFile);
 		setIcon(new ImageIcon(faceDownImage));
 	}
+	
 	public Card() {
-		
 	}
+	
 //	@Override
 //	public void paintComponent(Graphics g) {
 //		super.paintComponent(g);
@@ -67,26 +87,49 @@ public class Card extends JButton {
 //		}						
 //	}
 	
+	/**
+	 * Purpose: Get row
+	 * @return row
+	 */
 	public int getRow() {
 		return row;
 	}
 	
+	/**
+	 * Purpose: Set row
+	 * @param row
+	 */
 	public void setRow(int row) {
 		this.row = row;
 	}
 	
+	/**
+	 * Purpose: Get col
+	 * @return col
+	 */
 	public int getCol() {
 		return col;
 	}
 	
+	/**
+	 * Purpose: Set col
+	 * @param col
+	 */
 	public void setCol(int col) {
 		this.col = col;
 	}
 	
+	/**
+	 * Purpose: Get key
+	 * @return key
+	 */
 	public String getKey() {
 		return key;
 	}
 
+	/**
+	 * Purpose: Define when a card is face up
+	 */
 	public void faceUp() {
 		System.out.println("Flipping face up: " + key);
 	    System.out.println("Image null? " + (faceUpImage == null));
@@ -94,12 +137,22 @@ public class Card extends JButton {
 		setIcon(new ImageIcon(faceUpImage));
 		repaint();
 	}
+	
+	/**
+	 * Purpose: Define when card is face down
+	 */
 	public void faceDown() {
+		if (!matched) {
 		faceUp = false;
 		setIcon(new ImageIcon(faceDownImage));
 		repaint();
+		}
 	}
 	
+	/**
+	 * Purpose: Set face down image
+	 * @param file
+	 */
 	public void setFaceDownImage(File file)
 	{
 		try {
@@ -115,6 +168,10 @@ public class Card extends JButton {
 		}
 	}
 	
+	/**
+	 * Purpose: Set face up image
+	 * @param file
+	 */
 	public void setFaceUpImage(File file) {
 		try {
 			ogFaceImage = ImageIO.read(file)
@@ -129,15 +186,27 @@ public class Card extends JButton {
 		}
 	}
 	
+	/**
+	 * Purpose: Check if a card is face up
+	 * @return
+	 */
 	public boolean isFaceUp() {
 		return faceUp;
 	}
 	
+	/**
+	 * Purpose: Check if card is matched
+	 * @return
+	 */
 	public boolean isMatched() {
 		return matched;
 	}
 	
+	/**
+	 * Purpose: Set matched
+	 * @param matched
+	 */
 	public void setMatched(boolean matched) {
 		this.matched = matched;
+		}
 	}
-}

@@ -1,3 +1,17 @@
+/**
+* Lead Author(s):
+* @author Celeste Rodriguez
+* @author Mariana Aguilar
+*
+* References:
+* https://stackoverflow.com/questions/3634853/how-to-create-a-directory-in-java
+* //https://stackoverflow.com/questions/16112515/how-to-shuffle-an-arraylist
+*
+* Version: 2025-05-30
+* 
+* Responsibilities of class: Define the model for cards on the board
+*/
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,11 +20,8 @@ import java.util.List;
 import java.util.Random;
 
 public class CardModel {
-
+	// fields
 	public static final int DIMENSION = 6 ;
-	//for file folder 
-	//https://stackoverflow.com/questions/3634853/how-to-create-a-directory-in-java
-	
 	private File[][] cardImages = new File[DIMENSION][DIMENSION];
 	private String[][] keys = new String[DIMENSION][DIMENSION];
 	private HashMap<String, File> imageMap = new HashMap<>();
@@ -21,7 +32,6 @@ public class CardModel {
 	System.out.println("CardModel created");
 	File imageFolder = new File("images/cards");
 	File [] images = imageFolder.listFiles();
-	
 	
 	ArrayList<String> allKeys = new ArrayList<>();
 	for(int i = 0; i < 18; i++) 
@@ -34,8 +44,7 @@ public class CardModel {
 		
 	}
 	
-	//https://stackoverflow.com/questions/16112515/how-to-shuffle-an-arraylist
-	Collections.shuffle(allKeys);		//shuffle cards
+	Collections.shuffle(allKeys); //shuffle cards
 	
 	int index = 0;
 	for(int i = 0; i < DIMENSION; i++) {
@@ -44,19 +53,28 @@ public class CardModel {
 			keys[i][j] = keyIndex;
 			cardImages[i][j] = imageMap.get(keyIndex);
 		}
-	}
-
-		
-	}
+	}	
+}
 	
+	/**
+	 * Purpose: Get card model image
+	 * @param row
+	 * @param col
+	 * @return cardImages[row][col]
+	 */
 	public File getImage(int row, int col) {
 		return cardImages[row][col];
 	}
+	
+	/**
+	 * Purpose: Get key of card model
+	 * @param row
+	 * @param col
+	 * @return keys[row][col]
+	 */
 	public String getKey(int row, int col) {
 		return keys[row][col];
-	}
-	
-	
+	}	
 }
 
 

@@ -1,13 +1,23 @@
+/**
+* Lead Author(s):
+* @author Celeste Rodriguez
+* @author Mariana Aguilar
+* 
+* Version: 2025-05-30
+* 
+* Responsibilities of class: Start game and follow count and time
+*/
+
 public class Game {
-	Card card; // fields
+	// fields
+	Card card;
 	int matchCount;
-//	int cardsRemaining;
 	long time;
 	
-	public Game() // constructor
+	// constructor
+	public Game() 
 	{
 		this.card = card;
-//		this.cardsRemaining = cardsRemaining;
 		this.matchCount = matchCount;
 	}
 	
@@ -29,24 +39,6 @@ public class Game {
 	}
 	
 	/**
-	 * Purpose: Get cards remaining
-	 * @return cardsRemaining
-	 */
-//	public int getCardsRemaining()
-//	{
-//		// if card is face up, it should be removed from cards remaining
-//		return cardsRemaining;
-//	}
-//	
-//	/**
-//	 * Purpose: Set cards remaining
-//	 */
-//	public void setCardsRemaining()
-//	{
-//		this.cardsRemaining = cardsRemaining;
-//	}
-	
-	/**
 	 * Purpose: Get time
 	 * @return time
 	 */
@@ -61,8 +53,10 @@ public class Game {
 		this.time = time;
 	}
 	
+	/**
+	 * Purpose: Start game
+	 */
 	public void main() {
 		new BoardView(new CardModel());
 	}
-
 }

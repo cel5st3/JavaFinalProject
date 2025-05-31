@@ -1,30 +1,57 @@
+/**
+* Lead Author(s):
+* @author Celeste Rodriguez
+* @author Mariana Aguilar
+*
+* References:
+* ChatGPT
+* https://stackoverflow.com/questions/8065532/how-to-randomly-pick-an-element-from-an-array
+* 
+* Version: 2025-05-30
+* 
+* Responsibilities of class: Create a hint card, card that gives the player a hint with cardReveal
+*/
+
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
+import javax.swing.Timer;
 import java.util.TimerTask;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 public class HintCard extends Card implements Hintable {
-	
-	Card card; // fields
+	// fields
+	Card card; 
 	BoardView view;
-	private List<Card> cardsRemaining = new ArrayList<>();
+    private List<Card> cardsRemaining = new ArrayList<>();
 	
-	public HintCard() // constructor
+    /**
+     * Purpose: Create hint card
+     */
+	public HintCard() 
 	{
 		super();
 		this.card = card;
 		this.cardsRemaining = cardsRemaining;	
 	}
 	
-	public HintCard(int	row, int col, File faceImageFile, String key) {
+	/**
+	 * Purpose: Create HintCard
+	 * @param row
+	 * @param col
+	 * @param faceImageFile
+	 * @param key
+	 * @param cardsRemaining
+	 */
+	public HintCard(int	row, int col, File faceImageFile, String key, List<Card> cardsRemaining) {
 		this.row = row;
 		this.col = col;
 		this.key = key;
+		this.cardsRemaining = cardsRemaining;
 		matched = false;
 		faceUp = false;
 		selected = false;
@@ -41,53 +68,40 @@ public class HintCard extends Card implements Hintable {
 	 */
 	@Override
 	public void cardReveal()
-	{
-	//	Card[] cardsRemaining = getCardsRemaining();
-		Timer timer = new Timer();
+	{	
+		System.out.println("HintCard: cardReveal triggered");
+		
+		List<Card> cards = new ArrayList<>(); // get cards from board
+		for (Card c : cardsRemaining) {
+			if (!c.isMatched() && !c.isFaceUp()) {
+				cards.add(c);
+			}
+		}
 		
 		// if less than two cards remaining, return
-		if (getCardsRemaining() < 2) return;
+		if (cardsRemaining.size() < 2) return;
 		
 		// get two random cards from cards remaining
 		Random random = new Random();
-		int firstIndex = random.nextInt(getCardsRemaining()- 1);
-		int secondIndex = random.nextInt(getCardsRemaining() - 1);
+		int firstIndex = random.nextInt(cardsRemaining.size());
+		int secondIndex = random.nextInt(cardsRemaining.size());
+	    do {
+	    	secondIndex = random.nextInt(cardsRemaining.size()); // do while to ensure it gets two separate cards
+	    } while (secondIndex == firstIndex);
 				
 		Card firstCard = cardsRemaining.get(firstIndex);
 		Card secondCard = cardsRemaining.get(secondIndex);
 				
-		TimerTask task = new TimerTask() {
-			
-			int count =  2;
-			
-			@Override
-			public void run() { // leave cards up for 2 seconds, turn face down after count falls under zero
-				count--;
-				if (count < 0) {
+		firstCard.faceUp();
+		secondCard.faceUp();
+		
+		Timer task = new Timer(3000, new ActionListener() {
+			public void actionPerformed(ActionEvent e) { // leave cards up for 3 seconds, turn face down after timer ends
 					firstCard.faceDown();
 					secondCard.faceDown();
-					timer.cancel();
 				}
-			}
-		};
-		timer.scheduleAtFixedRate(task, 0, 1000);
+		});
+		task.setRepeats(false);
+		task.start();
 	}
-	
-	public int getCardsRemaining() {
-		return cardsRemaining.size();
-	}
-
-	/**
-	 * Purpose: Get cards remaining
-	 * @return cardsRemaining
-	 */
-//	private Card[] getCardsRemaining()
-//	{
-//		for (int i; i < cardsRemaining.length; i++) {
-//			if (cardsRemaining[i].isFaceup()) {
-//				
-//			}
-//			Card[] faceUpCards = card.isFaceUp();	
-//		}
-//	}
 }
