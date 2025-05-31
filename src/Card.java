@@ -4,7 +4,7 @@
 * @author Mariana Aguilar
 *
 * References:
-* 
+* Alex Chow, help with scaling graphics
 * 
 * Version: 2025-05-30
 * 
@@ -65,27 +65,7 @@ public class Card extends JButton {
 	public Card() {
 	}
 	
-//	@Override
-//	public void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-//		
-//		int buttonWidth = getSize().width;
-//		int buttonHeight = getSize().height;
-//		double targetWidth = buttonWidth * 0.7, targetHeight = buttonHeight * 0.7;
-//		
-//		if(buttonWidth < buttonHeight) {
-//			targetHeight = targetWidth / aspectRatio;
-//		}else {
-//			targetWidth = targetHeight * aspectRatio;
-//		}
-//		if(faceUp) {
-//			faceUpImage = ogFaceImage.getScaledInstance((int)targetWidth, (int)targetHeight, Image.SCALE_DEFAULT);
-//			setIcon(new ImageIcon(faceUpImage));
-//		}else {
-//			faceDownImage =ogDownImage.getScaledInstance((int)targetWidth, (int)targetHeight, Image.SCALE_DEFAULT);
-//			setIcon(new ImageIcon(faceDownImage));
-//		}						
-//	}
+
 	
 	/**
 	 * Purpose: Get row
@@ -196,7 +176,7 @@ public class Card extends JButton {
 	
 	/**
 	 * Purpose: Check if card is matched
-	 * @return
+	 * @return matched
 	 */
 	public boolean isMatched() {
 		return matched;

@@ -68,6 +68,10 @@ public class CardListener implements ActionListener {
             }
         });
 
+		
+		if(!view.isTimerStarted()) {
+			view.startTimer();
+		}
 		delay.setRepeats(false);
 		delay.start();
 	} }

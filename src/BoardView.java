@@ -4,7 +4,8 @@
 * @author Mariana Aguilar
 *
 * References:
-* 
+* https://stackoverflow.com/questions/8255738/is-there-a-stopwatch-in-java 
+* (stopwatch timer)
 * 
 * Version: 2025-05-30
 * 
@@ -19,19 +20,28 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+//import java.util.Timer;
+import javax.swing.Timer;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class BoardView extends JFrame{
-	// fields
 	private CardModel model;
 	private JLabel movesMade;
 	private JLabel gameWon;
 	public int moves;
+	private Timer gameTimer;
+	private long startTime;
+	private JLabel timerLabel;
+	private boolean timerStarted = false;
+
+	
+	
 	List<Card> cardsRemaining = new ArrayList<>();
 	
 	/**
@@ -55,7 +65,7 @@ public class BoardView extends JFrame{
 	    };
 	    backgroundPanel.setLayout(new BorderLayout());
 	    
-	    Random randomHint = new Random(); //-- added
+	    Random randomHint = new Random(); 
 	    int rowHint = randomHint.nextInt(CardModel.DIMENSION);
 	    int colHint = randomHint.nextInt(CardModel.DIMENSION);
 	    String hintKey = model.getKey(rowHint, colHint);
@@ -91,14 +101,21 @@ public class BoardView extends JFrame{
 		//instructions (west panel)
 		JPanel instructions = new JPanel();
 		JLabel instructionsLabel = new JLabel("Click to reveal a card. Match the cards");
-		instructions.add(instructionsLabel);
+		instructions.add(instructionsLabel, BorderLayout.NORTH);//
 		JButton retry = new JButton("Retry");
-		instructions.add(retry);
+		instructions.add(retry, BorderLayout.CENTER);//
+		retry.addActionListener(e -> {
+			if(gameTimer != null) gameTimer.stop();
+			this.dispose();
+			new BoardView(new CardModel());
+		});
 		
 		//side information  (east panel)
 		JPanel side = new JPanel();
-		movesMade = new JLabel("Moves Made : 0");
-		side.add(movesMade);
+		movesMade = new JLabel("Moves Made : 0", JLabel.CENTER);  //~
+		side.add(movesMade, BorderLayout.NORTH);
+		timerLabel = new JLabel("Time: 0s", JLabel.CENTER); //~
+		side.add(timerLabel, BorderLayout.SOUTH);//
 		
 	    // Add to background panel
 	    backgroundPanel.add(deck, BorderLayout.CENTER);
@@ -112,6 +129,8 @@ public class BoardView extends JFrame{
 	    gameWon = new JLabel();
 		side.add(gameWon);
 		
+		
+	
 		setContentPane(backgroundPanel);
 		pack();
 		setVisible(true);
@@ -130,16 +149,16 @@ public class BoardView extends JFrame{
 		return cardsRemaining.size();
 	}
 		
-//	/**
-//	 * Purpose: Check if game has been won
-//	 * @return true if game won, otherwise false
-//	 */
-//	private boolean gameWon() { 
-//		if (getCardsRemaining() == 0) {
-//			return true;
-//		}
-//		return false;
-//	}
+	/**
+	 * Purpose: Check if game has been won
+	 * @return true if game won, otherwise false
+	 */
+	private boolean gameWon() { 
+		if (getCardsRemaining() == 0) {
+			return true;
+		}
+		return false;
+	}
 	
 	/**
 	 * Purpose: Update UI
@@ -148,10 +167,37 @@ public class BoardView extends JFrame{
 	public void updateUI(java.awt.event.ActionEvent evt) {
 		moves++;
 		movesMade.setText("Moves Made : " + moves);
+		if(gameWon()) {
+			if(gameTimer != null) gameTimer.stop();
+			gameWon.setText("Game won!");
+			long totalTime = (System.currentTimeMillis() - startTime) / 1000;
+			JOptionPane.showMessageDialog(this,  "You finished the game in " + moves + " moves and " + totalTime + "seconds!",
+					"Game Complete", JOptionPane.INFORMATION_MESSAGE);
+		}
+
 		
-//		if (gameWon() == true) {
-//			gameWon.setText("Game won!");
-//		}
+
+	}
+	
+	/**
+	 * purpose: checks if the timer has started
+	 * @return
+	 */
+	public boolean isTimerStarted() {
+		return timerStarted;
+	}
+	
+	/**
+	 * purpose: starts timer 
+	 */
+	public void startTimer() {
+		timerStarted = true;
+		startTime = System.currentTimeMillis();
+		gameTimer = new Timer(1000, e -> {
+			long elapsed = (System.currentTimeMillis() - startTime) / 1000;
+			timerLabel.setText("Time: " + elapsed + "s");
+		});
+		gameTimer.start();
 	}
 	
 	/**
@@ -176,4 +222,5 @@ public class BoardView extends JFrame{
 				
 		new BoardView(new CardModel());
 	}
+	
 }
