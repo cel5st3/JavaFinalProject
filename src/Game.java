@@ -9,17 +9,16 @@
 */
 
 public class Game {
-	// fields
 	Card card;
 	int matchCount;
 	long time;
 	
-	// constructor
 	public Game() 
 	{
 		this.card = card;
 		this.matchCount = matchCount;
 	}
+	
 	
 	/**
 	 * Purpose: Get match count
@@ -30,6 +29,7 @@ public class Game {
 		return matchCount;
 	}
 	
+	
 	/**
 	 * Purpose: Set match count
 	 */
@@ -37,6 +37,7 @@ public class Game {
 	{
 		this.matchCount = matchCount;
 	}
+	
 	
 	/**
 	 * Purpose: Get time
@@ -46,12 +47,14 @@ public class Game {
 		return time;
 	}
 	
+	
 	/**
 	 * Purpose: Set time
 	 */
 	public void setTime() {
 		this.time = time;
 	}
+	
 	
 	/**
 	 * Purpose: Start game

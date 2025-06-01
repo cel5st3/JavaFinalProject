@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 public class CardListener implements ActionListener {
-	// fields
 	private CardModel model;
 	private BoardView view;
 	private Card card;
@@ -37,7 +36,7 @@ public class CardListener implements ActionListener {
 	}
 	
 	/**
-	 * 
+	 * Purpose: Action perform method for when a card is clicked
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
